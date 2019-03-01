@@ -1,0 +1,45 @@
+{
+  "name": "entitlements-api",
+  "version": "1.0.0",
+  "description": "API for getting the entitlements for a specified account",
+  "main": "dist/index.js",
+  "scripts": {
+    "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
+    "build": "tsc",
+    "dev": "ts-node-dev --respawn --transpileOnly ./src/index.ts",
+    "prestart": "npm run build",
+    "start": "node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RedHatInsights/entitlements-api.git"
+  },
+  "keywords": [
+    "API",
+    "Entitlements",
+    "SKUs",
+    "Insights",
+    "Red",
+    "Hat",
+    "Cloud",
+    "Services",
+    "Platform"
+  ],
+  "author": "Joshua Kinlaw",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RedHatInsights/entitlements-api/issues"
+  },
+  "homepage": "https://github.com/RedHatInsights/entitlements-api#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "@types/express": "^4.16.1",
+    "@types/node": "^11.9.6",
+    "ts-node-dev": "^1.0.0-pre.32",
+    "tslint": "^5.13.1",
+    "typescript": "^3.3.3333"
+  }
+}
