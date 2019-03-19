@@ -8,6 +8,6 @@ RUN npm ci --only=production
 
 COPY ./dist /opt/app-root/src
 
-EXPOSE 9002
+EXPOSE 8080
 ENV NODE_ENV=production
 CMD [ "node", "--max-http-header-size=16384", "./app.js" ]

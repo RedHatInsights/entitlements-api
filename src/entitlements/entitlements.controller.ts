@@ -1,23 +1,37 @@
 import {Request, Response} from "express";
+import { userInfo } from "os";
+import { hasSmartManagement } from "./subscription.services";
 
-export async function getEntitlements(req: Request, res: Response) {
-    const sampleResponse = {
-        "advisor": {
+/**
+ *
+ * @param req Request but using any because req.user creates property does not exist TS type issue
+ */
+function hasValidAccountNumber(req: any) {
+    // if (req.user.account_number > -1) {
+    //     return true;
+    // }
+
+    return false;
+}
+
+export async function getEntitlements(req: any, res: Response) {
+
+    const entitlements = {
+        // requires only a valid username/password which is verified before hitting endpoint
+        hybridCloud: {
             isEntitled: true
         },
-        "compliance": {
-            isEntitled: false
+        insights: {
+            isEntitled: hasValidAccountNumber(req)
         },
-        "cost-management": {
-            isEntitled: false
+        openShift: {
+            isEntitled: hasValidAccountNumber(req)
         },
-        "remediations": {
-            isEntitled: false
-        },
-        "vulnerability": {
-            isEntitled: false
+        smartManagement: {
+            isEntitled: hasSmartManagement("114034")
+            // isEntitled: hasSmartManagement(req)
         }
     };
 
-    return res.json(sampleResponse);
+    return res.json(entitlements);
 }

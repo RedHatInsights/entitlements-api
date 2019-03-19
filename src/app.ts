@@ -1,16 +1,44 @@
-import express = require("express");
+import { createTerminus } from "@godaddy/terminus";
+import P from "bluebird";
+import express from "express";
+import http from "http";
+import config from "./config";
 import { route } from "./routes";
 
 const app = express();
-const port = 8080; // default port to listen
+
+async function healthCheck() {
+    // TODO: fill this out later
+}
 
 async function start() {
     route(app);
-    app.listen(port, () => {
-        // replace with logger
+
+    const server: any = P.promisifyAll(http.createServer(app));
+
+    function shutdown() {
         // tslint:disable-next-line:no-console
-        console.log( `server started at http://localhost:${ port }` );
+        console.log("shutting down");
+    }
+
+    createTerminus(server, {
+        healthChecks: {
+            [`${config.path.base}/v1/health`]: healthCheck
+        },
+        signals: ["SIGINT", "SIGTERM"]
     });
+
+    await server.listenAsync(config.port);
+    // tslint:disable-next-line:no-console
+    console.log( `server started at http://localhost:${ config.port }` );
+
+    return {
+        stop() {
+            return server
+            .closeAsync()
+            .finally(shutdown);
+        }
+    };
 }
 
 module.exports = { start };
