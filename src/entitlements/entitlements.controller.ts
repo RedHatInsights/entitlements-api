@@ -11,25 +11,24 @@ function hasValidAccountNumber(req: any) {
     //     return true;
     // }
 
-    return false;
+    return true;
 }
 
 export async function getEntitlements(req: any, res: Response) {
 
     const entitlements = {
         // requires only a valid username/password which is verified before hitting endpoint
-        hybridCloud: {
-            isEntitled: true
+        hybrid_cloud: {
+            is_entitled: true
         },
         insights: {
-            isEntitled: hasValidAccountNumber(req)
+            is_entitled: hasValidAccountNumber(req)
         },
-        openShift: {
-            isEntitled: hasValidAccountNumber(req)
+        openshift: {
+            is_entitled: hasValidAccountNumber(req)
         },
-        smartManagement: {
-            isEntitled: hasSmartManagement("114034")
-            // isEntitled: hasSmartManagement(req)
+        smart_management: {
+            is_entitled: hasSmartManagement("114034")
         }
     };
 
