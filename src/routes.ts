@@ -8,5 +8,5 @@ export async function route(app: Application) {
         res.send( "lubDub" );
     });
 
-    app.get(`${config.path.base}/v1/entitlements/:id`, getEntitlements);
+    app.get(`${config.path.base}/v1/entitlements/`, getEntitlements);
 }
