@@ -45,7 +45,7 @@ const config = {
     path: {
         app: env.APP_NAME || "entitlements",
         base: "",
-        prefix: env.PATH_PREFIX || "/r/insights/platform"
+        prefix: env.PATH_PREFIX || "/api"
 
     },
 
@@ -53,6 +53,17 @@ const config = {
 
     // general timeout for HTTP invocations of external services
     requestTimeout: parseInt(env.REQUEST_TIMEOUT, 10) || 10000,
+
+    // needs to support dev, ci, qa, prod environments
+    // subscription
+    subscription: {
+        dev: "https://subscription.dev.api.redhat.com",
+        prod: "https://subscription.api.redhat.com",
+        qa: "https://subscription.qa.api.redhat.com",
+        route: "/svcrest/subscription/v5/search/criteria",
+        serviceSslCert: (process.env.SERVICE_SSL_CERT || "").replace(/\\n/g, "\n"),
+        serviceSslKey: (process.env.SERVICE_SSL_KEY || "").replace(/\\n/g, "\n")
+    },
 
     users: {
         auth: env.USERS_AUTH || "",
