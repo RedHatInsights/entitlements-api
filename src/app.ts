@@ -11,6 +11,11 @@ async function healthCheck() {
     // TODO: fill this out later
 }
 
+app.use((req: any, res, next: any) => {
+    req.user = JSON.parse(Buffer.from(req.headers["x-rh-identity"], "base64").toString());
+    next();
+});
+
 async function start() {
     route(app);
 

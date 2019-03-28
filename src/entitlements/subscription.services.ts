@@ -4,7 +4,16 @@ import { Request, Response } from "express";
 import request from "request-promise";
 import config from "../config";
 
-async function getEntitlements(orgId: string) {
+function buildUri(userId: string) {
+    return [
+        `${config.subscription.dev}${config.subscription.route}`,
+        `web_customer_id=${userId}`,
+        "ku=SVC3124",
+        "status=active"
+    ].join(";");
+}
+
+async function getEntitlements(userId: string) {
     return request({
         // @ts-ignore
         cert: config.subscription.serviceSslCert,
@@ -14,8 +23,7 @@ async function getEntitlements(orgId: string) {
         // @ts-ignore
         key: config.subscription.serviceSslKey,
         method: "GET",
-        uri: `${config.subscription.dev}${config.subscription.route};
-              web_customer_id=${orgId};sku=SVC3124;status=active`
+        uri: buildUri(userId)
     });
 }
 

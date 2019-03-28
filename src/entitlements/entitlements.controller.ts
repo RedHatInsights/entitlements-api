@@ -28,7 +28,7 @@ export async function getEntitlements(req: any, res: Response) {
             is_entitled: hasValidAccountNumber(req)
         },
         smart_management: {
-            is_entitled: hasSmartManagement(req.user.org_id)
+            is_entitled: hasSmartManagement(req.user.identity.account_number)
         }
     };
 
