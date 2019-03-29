@@ -30,7 +30,7 @@ async function start() {
 
     await server.listenAsync(config.port);
     // tslint:disable-next-line:no-console
-    console.log( `server started at http://localhost:${ config.port }` );
+    console.log( `server started at ${config.path.base}:${ config.port }` );
 
     return {
         stop() {

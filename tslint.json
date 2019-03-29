@@ -3,6 +3,7 @@
     "extends": [
         "tslint:recommended"
     ],
+    "interface-name": [true, "never-prefix"],
     "jsRules": {},
     "rules": {
         "trailing-comma": [ false ]
