@@ -4,8 +4,9 @@
   "description": "API for getting the entitlements for a specified account",
   "main": "dist/app.js",
   "scripts": {
-    "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
-    "build": "tsc",
+    "lint": "tslint -c tslint.json -p tsconfig.json --fix",
+    "compile": "tsc",
+    "build": "npm-run-all lint compile",
     "dev": "ts-node-dev --respawn --transpileOnly ./src/app.ts",
     "prestart": "npm run build",
     "start": "npm-run-all prebuild build dev",
@@ -36,8 +37,11 @@
   "dependencies": {
     "@godaddy/terminus": "^4.1.0",
     "@types/bluebird": "^3.5.26",
+    "@types/cls-hooked": "^4.3.0",
     "@types/lodash": "^4.14.123",
     "bluebird": "^3.5.3",
+    "body-parser": "^1.18.3",
+    "cls-bluebird": "^2.1.0",
     "express": "^4.16.4",
     "express-http-context": "^1.2.0",
     "lodash": "^4.17.11",
