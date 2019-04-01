@@ -1,7 +1,7 @@
+import bodyParser from "body-parser";
 import {Application, Request, Response} from "express";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "../swagger/api.spec.json";
-import bodyParser from "body-parser";
 import config from "./config";
 import prettyJson from "./middleware/prettyJson";
 

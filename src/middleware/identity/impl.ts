@@ -17,8 +17,6 @@ export default function(req: Request, res: Response, next: any) {
     try {
         const value = Buffer.from(raw, "base64").toString("ascii");
         req.identity = JSON.parse(value).identity;
-        // tslint:disable-next-line:no-console
-        console.log(req.identity);
         // log.trace({identity: req.identity, reqId}, "parsed identity header");
 
         if (!req.identity.account_number) {
