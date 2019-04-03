@@ -35,6 +35,7 @@ const config = {
 
     demo: (env.DEMO_MODE === "true") ? true : false,
     env: env.NODE_ENV || "development",
+    envHeader: process.env.ENV_HEADER || "x-rh-insights-env",
 
     metrics: {
         enabled: env.METRICS_ENABLED === "false" ? false : true,
@@ -60,8 +61,12 @@ const config = {
         dev: "https://subscription.dev.api.redhat.com",
         prod: "https://subscription.api.redhat.com",
         qa: "https://subscription.qa.api.redhat.com",
-        route: "/svcrest/subscription/v5/search/criteria",
+        route: "/svcrest/subscription/v5/search/criteria;web_customer_id=${orgId};sku=SVC3124;status=active",
+        // @ts-ignore
+        serviceSslCa: (process.env.SERVICE_SSL_CA || "").replace(/\\n/g, "\n"),
+        // @ts-ignore
         serviceSslCert: (process.env.SERVICE_SSL_CERT || "").replace(/\\n/g, "\n"),
+        // @ts-ignore
         serviceSslKey: (process.env.SERVICE_SSL_KEY || "").replace(/\\n/g, "\n")
     },
 

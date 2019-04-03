@@ -7,9 +7,9 @@
     "lint": "tslint -c tslint.json -p tsconfig.json --fix",
     "compile": "tsc",
     "build": "npm-run-all lint compile",
-    "dev": "ts-node-dev --respawn --transpileOnly ./src/app.ts",
+    "dev": "NODE_ENV=development ts-node-dev --respawn --transpileOnly ./src/app.ts",
     "start": "npm-run-all build dev",
-    "prod": "npm run build",
+    "prod": "NODE_ENV=production npm run compile",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

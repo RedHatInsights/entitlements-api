@@ -6,7 +6,7 @@ COPY package.json package-lock.json /opt/app-root/src/
 
 RUN npm ci --only=production
 
-COPY ./dist /opt/app-root/src
+COPY ./dist/ /opt/app-root/
 
 EXPOSE 8080
 ENV NODE_ENV=production

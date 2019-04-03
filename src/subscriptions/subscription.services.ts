@@ -1,5 +1,7 @@
 import request from "request-promise";
 import config from "../config";
+import Request from "../types/RequestType";
+import subscriptionUrl from "./subscriptionUrl";
 
 /**
  * Queries subscription service looking for supplied smart management
@@ -11,18 +13,21 @@ import config from "../config";
  * @param orgId org_id from the user object on the request. Subscription service
  * refers to this as the web_customer_id
  */
-async function getEntitlements(orgId: string) {
+async function getEntitlements(req: Request) {
     return request({
+        // @ts-ignore
+        ca: config.subscription.serviceSslCa,
         // @ts-ignore
         cert: config.subscription.serviceSslCert,
         headers: {
             Accept: "application/json"
         },
+        json: true,
         // @ts-ignore
         key: config.subscription.serviceSslKey,
         method: "GET",
-        uri: `${config.subscription.dev}${config.subscription.route};
-              web_customer_id=${orgId};sku=SVC3124;status=active`
+        // @ts-ignore
+        uri: `${subscriptionUrl(req)}${config.subscription.route}`.replace("${orgId}", req.identity.internal.org_id)
     });
 }
 
@@ -31,9 +36,9 @@ async function getEntitlements(orgId: string) {
  *
  * @param orgId org_id from the user object on the request
  */
-export function hasSmartManagement(orgId: string) {
-    const smartManagementResults = getEntitlements(orgId);
-    if (Array.isArray(smartManagementResults) && smartManagementResults.length > 0) {
+export async function hasSmartManagement(req: Request) {
+    const response = await getEntitlements(req);
+    if ((Array.isArray(response) && response.length > 0) || response.subscriptionNumber) {
         return true;
     }
 

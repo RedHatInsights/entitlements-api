@@ -1,8 +1,8 @@
 "use strict";
 
-import P, { any } from "bluebird";
+// import P, { any } from "bluebird";
 
-// tslint:disable-next-line
+// no type for cls-bluebird
 // import clsBluebird from "cls-bluebird";
 import httpContext from "express-http-context";
 
