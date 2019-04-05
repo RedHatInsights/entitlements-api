@@ -1,3 +1,4 @@
+import fs from "fs";
 import request from "request-promise";
 import config from "../config";
 import Request from "../types/RequestType";
@@ -14,17 +15,27 @@ import subscriptionUrl from "./subscriptionUrl";
  * refers to this as the web_customer_id
  */
 async function getEntitlements(req: Request) {
+    let ca = config.subscription.serviceSslCa;
+    let cert = config.subscription.serviceSslCert;
+    let key = config.subscription.serviceSslKey;
+
+    if (process.env.NODE_ENV === "development") {
+        cert = fs.readFileSync(cert, "utf8").replace(/\\n/g, "\n");
+        key = fs.readFileSync(key, "utf8").replace(/\\n/g, "\n");
+        ca = fs.readFileSync(ca, "utf8").replace(/\\n/g, "\n");
+    }
+
     return request({
         // @ts-ignore
-        ca: config.subscription.serviceSslCa,
+        ca,
         // @ts-ignore
-        cert: config.subscription.serviceSslCert,
+        cert,
         headers: {
             Accept: "application/json"
         },
         json: true,
         // @ts-ignore
-        key: config.subscription.serviceSslKey,
+        key,
         method: "GET",
         // @ts-ignore
         uri: `${subscriptionUrl(req)}${config.subscription.route}`.replace("${orgId}", req.identity.internal.org_id)

@@ -8,7 +8,7 @@ import Request from "../types/RequestType";
 export = (req: Request) => {
     const envHeader = req.headers[config.envHeader];
     let subscriptionUrl = config.subscription.qa;
-    
+
     if (process.env.NODE_ENV === "development") {
         return subscriptionUrl = config.subscription.dev;
     } else {

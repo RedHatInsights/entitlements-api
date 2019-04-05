@@ -5,7 +5,7 @@ const IDENTITY_HEADER = "x-rh-identity";
 const DEFAULTS = Object.freeze({
     account_number: "test",
     internal: {
-        org_id: "5318290" // not used by remediations but some apps (compliance) rely on this (demo mode)
+        org_id: "1979710"
     },
     type: "User",
     user: {

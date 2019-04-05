@@ -14,7 +14,7 @@ Given the rh-identity
 ### Running the application locally
 
 1. ```npm install```
-2. ```CERT='path/to/cert' KEY='path/to/key' npm run start```
+2. ```SERVICE_SSL_CERT='path/to/cert' SERVICE_SSL_KEY='path/to/key' npm run start```
 3. open http://localhost:8080/entitlements/v1/services/
 
 ## Getting an Enterprise Cert
