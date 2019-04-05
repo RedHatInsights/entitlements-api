@@ -14,8 +14,11 @@ Given the rh-identity
 ### Running the application locally
 
 1. ```npm install```
-2. ```SERVICE_SSL_CERT='path/to/cert' SERVICE_SSL_KEY='path/to/key' npm run start```
+2. ```SERVICE_SSL_CERT='path/to/cert' SERVICE_SSL_KEY='path/to/key' SERVICE_SSL_CA='path/to/ca/' npm run start```
 3. open http://localhost:8080/entitlements/v1/services/
+
+The CA can be obtained from the openshift dev cluster entitlements-ci or entitlements-qa project. The ca will be in the
+resource secrets.
 
 ## Getting an Enterprise Cert
 
