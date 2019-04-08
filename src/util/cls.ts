@@ -1,5 +1,3 @@
-"use strict";
-
 // import P, { any } from "bluebird";
 
 // no type for cls-bluebird

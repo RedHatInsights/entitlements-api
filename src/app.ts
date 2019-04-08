@@ -4,6 +4,7 @@ import express from "express";
 import http from "http";
 import config from "./config";
 import { route } from "./routes";
+import log from "./util/log";
 
 const app = express();
 
@@ -12,25 +13,27 @@ async function healthCheck() {
 }
 
 async function start() {
+    log.info(`Entitlements starting`);
     route(app);
 
     const server: any = P.promisifyAll(http.createServer(app));
 
     function shutdown() {
-        // tslint:disable-next-line:no-console
-        console.log("shutting down");
+        log.info("shutting down");
     }
 
     createTerminus(server, {
         healthChecks: {
             [`${config.path.base}/v1/health`]: healthCheck
         },
+
+        logger: (msg, error) => log.error(error, msg),
+
         signals: ["SIGINT", "SIGTERM"]
     });
 
     await server.listenAsync(config.port);
-    // tslint:disable-next-line:no-console
-    console.log( `server started at ${config.path.base}:${ config.port }` );
+    log.info( `server started at ${config.path.base}:${ config.port }` );
 
     return {
         stop() {

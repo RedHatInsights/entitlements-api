@@ -37,6 +37,11 @@ const config = {
     env: env.NODE_ENV || "development",
     envHeader: process.env.ENV_HEADER || "x-rh-insights-env",
 
+    logging: {
+        level: env.LOG_LEVEL || ((env.NODE_ENV === "test") ? "error" : "debug"),
+        pretty: (env.NODE_ENV !== "production")
+    },
+
     metrics: {
         enabled: env.METRICS_ENABLED === "false" ? false : true,
         prefix: env.METRICS_PREFIX || "entitlements_",
