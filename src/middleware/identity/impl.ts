@@ -1,8 +1,8 @@
 import Request from "../../types/RequestType";
+import log from "../../util/log";
 
 const IDENTITY_HEADER = "x-rh-identity";
 // const errors = require("../../errors");
-const log = require("../../util/log");
 
 export default function(req: Request, res: Response, next: any) {
     const raw = req.headers[IDENTITY_HEADER];
