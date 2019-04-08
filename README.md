@@ -11,16 +11,8 @@ Given the rh-identity
 * node.js 10
 * an Enterprise Services cert with access to the dev subscription endpoint /search/criteria (See Getting a Cert)
 
-### Running the application locally
 
-1. ```npm install```
-2. ```SERVICE_SSL_CERT='path/to/cert' SERVICE_SSL_KEY='path/to/key' SERVICE_SSL_CA='path/to/ca/' npm run start```
-3. open http://localhost:8080/entitlements/v1/services/
-
-The CA can be obtained from the openshift dev cluster entitlements-ci or entitlements-qa project. The ca will be in the
-resource secrets.
-
-## Getting an Enterprise Cert
+### Getting an Enterprise Cert
 
 To run the Entitlements API locally you will need an Enterprise Services cert with access to the dev subscription endpoint /search/criteria.
 
@@ -40,4 +32,16 @@ query subscription services. To export your .crt and .key file:
 * From here you can export your crt and key like so:
     `openssl pkcs12 -in your-p12-cert.p12 -out your-key.key -nocerts -nodes`
     `openssl pkcs12 -in your-p12-cert.p12 -out your-cert-sans-key.crt -clcerts -nokeys`
+
+### Getting the CA
+The CA can be obtained from the openshift dev cluster entitlements-ci or entitlements-qa project. The ca will be in the
+resource secrets.
+
+### Running the application locally
+
+1. ```npm install```
+2. ```SERVICE_SSL_CERT='path/to/cert' SERVICE_SSL_KEY='path/to/key' SERVICE_SSL_CA='path/to/ca/' npm run start```
+3. open http://localhost:8080/entitlements/v1/services/
+
+
 
