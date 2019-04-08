@@ -37,7 +37,7 @@ query subscription services. To export your .crt and .key file:
 The CA can be obtained from the openshift dev cluster entitlements-ci or entitlements-qa project. The ca will be in the
 resource secrets.
 
-### Running the application locally
+## Running the application locally
 
 1. ```npm install```
 2. ```SERVICE_SSL_CERT='path/to/cert' SERVICE_SSL_KEY='path/to/key' SERVICE_SSL_CA='path/to/ca/' npm run start```
