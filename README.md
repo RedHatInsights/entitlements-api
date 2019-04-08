@@ -38,6 +38,6 @@ query subscription services. To export your .crt and .key file:
     * Select Backup...
     * Save as a pk12 file  
 * From here you can export your crt and key like so:
-    openssl pkcs12 -in your-p12-cert.p12 -out your-key.key -nocerts -nodes
-    openssl pkcs12 -in your-p12-cert.p12 -out your-cert-sans-key.crt -clcerts -nokeys
+    `openssl pkcs12 -in your-p12-cert.p12 -out your-key.key -nocerts -nodes`
+    `openssl pkcs12 -in your-p12-cert.p12 -out your-cert-sans-key.crt -clcerts -nokeys`
 
