@@ -10,7 +10,7 @@ const QUIT_TIMEOUT = 1000;
 
 let client: any = null;
 
-exports.connect = () => {
+export const connect = () => {
     if (client) {
         return client;
     }
@@ -33,7 +33,7 @@ exports.connect = () => {
     return client;
 };
 
-exports.get = () => {
+export const get = () => {
     if (!client) {
         throw new Error("not connected to redis");
     }
@@ -41,7 +41,7 @@ exports.get = () => {
     return client;
 };
 
-exports.close = () => {
+export const close = () => {
     if (client) {
         const local = client;
         client = null;
