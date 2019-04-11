@@ -19,10 +19,8 @@ async function start() {
 
     const server: any = P.promisifyAll(http.createServer(app));
 
-    // TODO: fix
     redis.connect();
 
-    // TODO: fix
     function shutdown() {
         log.info("shutting down");
         redis.close();
