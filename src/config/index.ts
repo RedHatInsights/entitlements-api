@@ -85,6 +85,13 @@ const config = {
         revalidationInterval: parseIntEnv("USERS_REVALIDATION_INVERVAL", 60 * 60 * 12) // 12 hours
     },
 
+    redis: {
+        enabled: env.REDIS_ENABLED === "true" ? true : false,
+        host: env.REDIS_HOST || "localhost",
+        password: env.REDIS_PASSWORD || undefined,
+        port: parseIntEnv("REDIS_PORT", 6379)
+    },
+
     // by default enabled in non-prod
     validateResponseStrict: env.VALIDATE_RESPONSE_STRICT === undefined ?
         env.NODE_ENV !== "production" :

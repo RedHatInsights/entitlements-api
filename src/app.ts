@@ -2,6 +2,7 @@ import { createTerminus } from "@godaddy/terminus";
 import P from "bluebird";
 import express from "express";
 import http from "http";
+import * as redis from "./cache";
 import config from "./config";
 import { route } from "./routes";
 import log from "./util/log";
@@ -18,8 +19,13 @@ async function start() {
 
     const server: any = P.promisifyAll(http.createServer(app));
 
+    // TODO: fix
+    redis.connect();
+
+    // TODO: fix
     function shutdown() {
         log.info("shutting down");
+        redis.close();
     }
 
     createTerminus(server, {
