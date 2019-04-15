@@ -26,7 +26,7 @@ export const connect = () => {
     client = new Redis(opts);
 
     client.on("connect", () => log.info("connected to redis"));
-    client.on("error", (err: any) => {
+    client.on("error", (err: Error) => {
         log.warn(err, "error connecting to redis");
     });
 
