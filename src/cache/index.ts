@@ -8,7 +8,7 @@ import log from "../util/log";
 
 const QUIT_TIMEOUT = 1000;
 
-let client: any = null;
+let client: Redis.Redis = null;
 
 export const connect = () => {
     if (client) {
