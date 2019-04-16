@@ -41,4 +41,4 @@ resource secrets.
 
 1. ```npm install```
 2. ```docker-compose up redis``` and ```REDIS_ENABLED=true SERVICE_SSL_CERT='path/to/cert' SERVICE_SSL_KEY='path/to/key' SERVICE_SSL_CA='path/to/ca/' npm run start```
-3. open [localhost:8080](http://localhost:8080/entitlements/v1/services/)
+3. open [localhost:8080/entitlements/v1/services](http://localhost:8080/entitlements/v1/services/)
