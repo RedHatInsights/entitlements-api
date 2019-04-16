@@ -9,6 +9,7 @@ const CACHE_TTL = config.cache.ttl;
 const REVALIDATION_INTERVAL = config.cache.revalidationInterval;
 
 function doHttp (options, cached) {
+
     const opts = {
         resolveWithFullResponse: true,
         simple: false,
@@ -31,6 +32,7 @@ function doHttp (options, cached) {
 }
 
 function cacheKey (uri) {
+    log.info(uri); //TODO: Remove
     return `entitlements|http-cache|${uri}`;
 }
 
@@ -42,6 +44,8 @@ async function loadCachedEntry (redis, key, revalidationInterval) {
     cached = JSON.parse(cached);
     cached.time = new Date(cached.time);
     cached.expired = new Date() - cached.time > revalidationInterval * 1000;
+
+    log.info(cached); //TODO: Remove
     return cached;
 }
 
