@@ -5,4 +5,5 @@ export default interface Request {
     identity: any;
     query: any;
     user: any;
+    run(opts: any): any;
 }
