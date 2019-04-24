@@ -34,8 +34,9 @@ export async function getEntitlements(req: Request, res: Response) {
         insights: {
             is_entitled: hasValidAccountNumber(req)
         },
+        // requires only a valid username/password which is verified before hitting endpoint
         openshift: {
-            is_entitled: hasValidAccountNumber(req)
+            is_entitled: true
         },
         smart_management: {
             is_entitled: hasSmartManagementSub
