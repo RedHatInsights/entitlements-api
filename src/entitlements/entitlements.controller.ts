@@ -8,7 +8,7 @@ import log from "../util/log";
  * @param req
  */
 function hasValidAccountNumber(req: Request) {
-    return (req.identity.account_number > -1) ? true : false;
+    return req.identity.account_number > -1;
 }
 
 /**
