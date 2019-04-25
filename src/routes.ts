@@ -15,8 +15,8 @@ export async function route(app: Application) {
         // app.use(require("./middleware/identity/demo"));
     }
 
-    if (config.env === "development" || config.env === "test") {
-        // app.use(require("./middleware/identity/fallback"));
+    if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test") {
+        app.use(require("./middleware/identity/fallback"));
     }
 
     // @ts-ignore

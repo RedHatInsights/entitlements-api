@@ -8,8 +8,9 @@
     "compile": "tsc",
     "build": "npm-run-all lint compile",
     "dev": "NODE_ENV=development ts-node-dev --respawn --transpileOnly ./src/app.ts",
+    "prod": "NODE_ENV=production ts-node-dev --respawn --transpileOnly ./src/app.ts",
     "start": "npm-run-all build dev",
-    "prod": "NODE_ENV=production npm run compile",
+    "start-prod": "npm-run-all build prod",
     "test": "echo \"Error: no test specified\" && exit 1",
     "travis": "npm run build"
   },

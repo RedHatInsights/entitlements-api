@@ -2,17 +2,13 @@ import { userInfo } from "os";
 import { hasSmartManagement } from "../subscriptions/subscription.services";
 import Request from "../types/RequestType";
 import Response from "../types/ResponseType";
-
+import log from "../util/log";
 /**
  *
  * @param req
  */
 function hasValidAccountNumber(req: Request) {
-    if (req.identity.account_number > -1) {
-        return true;
-    }
-
-    return true;
+    return (req.identity.account_number > -1) ? true : false;
 }
 
 /**
