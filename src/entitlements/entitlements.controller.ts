@@ -5,10 +5,10 @@ import Response from "../types/ResponseType";
 
 /**
  *
- * @param req Request but using any because req.user creates property does not exist TS type issue
+ * @param req
  */
 function hasValidAccountNumber(req: Request) {
-    if (req.user.account_number > -1) {
+    if (req.identity.account_number > -1) {
         return true;
     }
 
