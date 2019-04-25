@@ -24,13 +24,6 @@ export default function(req: Request, res: Response, next: any) {
             return next(new Error("Unauthorized"));
         }
 
-        if (req.identity.type === "User") {
-            req.user = {
-                account_number: req.identity.account_number,
-                username: req.identity.user.username
-            };
-        }
-
         // res.log = res.log.child({req});
 
         next();

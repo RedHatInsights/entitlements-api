@@ -3,7 +3,7 @@
 const IDENTITY_HEADER = "x-rh-identity";
 
 const DEFAULTS = Object.freeze({
-    account_number: "test",
+    account_number: "1",
     internal: {
         org_id: "1979710"
     },

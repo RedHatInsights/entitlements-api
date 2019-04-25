@@ -2,17 +2,13 @@ import { userInfo } from "os";
 import { hasSmartManagement } from "../subscriptions/subscription.services";
 import Request from "../types/RequestType";
 import Response from "../types/ResponseType";
-
+import log from "../util/log";
 /**
  *
- * @param req Request but using any because req.user creates property does not exist TS type issue
+ * @param req
  */
 function hasValidAccountNumber(req: Request) {
-    if (req.user.account_number > -1) {
-        return true;
-    }
-
-    return true;
+    return req.identity.account_number > -1;
 }
 
 /**
