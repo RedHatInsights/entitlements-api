@@ -61,9 +61,10 @@ const config = {
     requestTimeout: parseInt(env.REQUEST_TIMEOUT, 10) || 10000,
 
     // needs to support dev, ci, qa, prod environments
+    // We are not entitled to smart-management in subscription.dev.api, so use qa instead.
     // subscription
     subscription: {
-        dev: "https://subscription.dev.api.redhat.com",
+        dev: "https://subscription.qa.api.redhat.com",
         prod: "https://subscription.api.redhat.com",
         qa: "https://subscription.qa.api.redhat.com",
         route: "/svcrest/subscription/v5/search/criteria;web_customer_id=${orgId};sku=SVC3124;status=active",
