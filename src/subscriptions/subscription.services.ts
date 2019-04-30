@@ -47,9 +47,16 @@ async function getEntitlements(req: Request) {
  * @param orgId org_id from the user object on the request
  */
 export async function hasSmartManagement(req: Request) {
-    const response = await getEntitlements(req);
-    if ((Array.isArray(response) && response.length > 0) || response.subscriptionNumber) {
-        return true;
+    try {
+        const response = await getEntitlements(req);
+
+        if ((Array.isArray(response) && response.length > 0) || response.subscriptionNumber) {
+            return true;
+        }
+    } catch (e) {
+        log.error('Error while running getEntitlements');
+        log.error(e);
+        return false;
     }
 
     return false;
