@@ -2,6 +2,7 @@ import fs from "fs";
 import request from "request-promise";
 import config from "../config";
 import Request from "../types/RequestType";
+import log from "../util/log";
 
 /**
  * Queries subscription service looking for supplied smart management
@@ -54,7 +55,7 @@ export async function hasSmartManagement(req: Request) {
             return true;
         }
     } catch (e) {
-        log.error('Error while running getEntitlements');
+        log.error("Error while running getEntitlements");
         log.error(e);
         return false;
     }
