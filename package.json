@@ -4,7 +4,7 @@
   "description": "API for getting the entitlements for a specified account",
   "main": "dist/app.js",
   "scripts": {
-    "lint": "tslint -c tslint.json -p tsconfig.json --fix",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
     "compile": "tsc",
     "build": "npm-run-all lint compile",
     "dev": "NODE_ENV=development ts-node-dev --respawn --transpileOnly ./src/app.ts",

@@ -23,6 +23,7 @@ function parseIntEnv(name: string, defaultValue: number) {
 }
 
 const config = {
+    backendUrl: "",
 
     bodyParserLimit: env.BODY_PARSER_LIMIT || "100kb",
 
@@ -67,6 +68,7 @@ const config = {
         prod: "https://subscription.api.redhat.com",
         qa: "https://subscription.qa.api.redhat.com",
         route: "/svcrest/subscription/v5/search/criteria;web_customer_id=${orgId};sku=SVC3124;status=active",
+
         // @ts-ignore
         serviceSslCa: (process.env.SERVICE_SSL_CA || "").replace(/\\n/g, "\n"),
         // @ts-ignore
@@ -97,6 +99,11 @@ const config = {
         env.NODE_ENV !== "production" :
         env.VALIDATE_RESPONSE_STRICT === "true" ? true : false
 };
+
+config.backendUrl = config.subscription.qa;
+if (process.env.BACKEND_ENV && process.env.BACKEND_ENV === "prod") {
+    config.backendUrl = config.subscription.prod;
+}
 
 config.path.base = `${config.path.prefix}/${config.path.app}`;
 

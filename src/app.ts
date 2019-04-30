@@ -37,7 +37,8 @@ async function start() {
     });
 
     await server.listenAsync(config.port);
-    log.info( `server started at ${config.path.base}:${ config.port }` );
+    log.info(`server started at ${config.path.base}:${ config.port }`);
+    log.info(`Using backend ${config.backendUrl}`);
 
     return {
         stop() {

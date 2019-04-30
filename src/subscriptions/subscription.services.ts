@@ -2,7 +2,6 @@ import fs from "fs";
 import request from "request-promise";
 import config from "../config";
 import Request from "../types/RequestType";
-import subscriptionUrl from "./subscriptionUrl";
 
 /**
  * Queries subscription service looking for supplied smart management
@@ -38,7 +37,7 @@ async function getEntitlements(req: Request) {
         key,
         method: "GET",
         // @ts-ignore
-        uri: `${subscriptionUrl(req)}${config.subscription.route}`.replace("${orgId}", req.identity.internal.org_id)
+        uri: `${config.backendUrl}${config.subscription.route}`.replace("${orgId}", req.identity.internal.org_id)
     });
 }
 
