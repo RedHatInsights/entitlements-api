@@ -56,6 +56,7 @@ export async function hasSmartManagement(req: Request) {
         }
     } catch (e) {
         log.error("Error while running getEntitlements");
+        delete e.options;
         log.error(e);
         return false;
     }
