@@ -6,19 +6,21 @@ import Request from "../types/RequestType";
  * default is qa
  */
 export = (req: Request) => {
-    const envHeader = req.headers[config.envHeader];
     let subscriptionUrl = config.subscription.qa;
 
     if (process.env.NODE_ENV === "development") {
         return subscriptionUrl = config.subscription.dev;
     } else {
-        switch (envHeader) {
+        const env = process.env.BACKEND_ENV;
+        switch (env) {
             case "ci":
                 subscriptionUrl = config.subscription.dev;
                 break;
             case "prod":
                 subscriptionUrl = config.subscription.prod;
                 break;
+            default:
+                subscriptionUrl = config.subscription.prod;
         }
     }
 
