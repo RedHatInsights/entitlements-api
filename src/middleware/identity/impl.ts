@@ -15,7 +15,7 @@ export default function(req: Request, res: Response, next: any) {
     }
 
     try {
-        const value = Buffer.from(raw, "base64").toString("ascii");
+        const value = Buffer.from(raw, "base64").toString("utf8");
         req.identity = JSON.parse(value).identity;
         log.trace({identity: req.identity, reqId}, "parsed identity header");
 
