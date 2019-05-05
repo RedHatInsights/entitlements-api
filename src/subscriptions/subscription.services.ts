@@ -56,7 +56,18 @@ export async function hasSmartManagement(req: Request) {
         }
     } catch (e) {
         log.error("Error while running getEntitlements");
+
+        if (e.name === 'StatusCodeError') {
+            log.error(`${e.name} [${e.statusCode}] """ ${e.message} """`);
+            return false;
+        }
+
+        // for extra safety
+        // we dont want certs in the logs
+        // or very large response data
         delete e.options;
+        delete e.response;
+
         log.error(e);
         return false;
     }
