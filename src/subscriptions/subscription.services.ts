@@ -42,6 +42,21 @@ async function getEntitlements(req: Request) {
     });
 }
 
+function getTimerString(identity: object) {
+    const obj = {
+        // @ts-ignore
+        org_id: identity.internal.org_id
+    };
+
+    // @ts-ignore
+    if (identity.type === "User") {
+        // @ts-ignore
+        obj.user = identity.user.username;
+    }
+
+    return "Service performance: " +  JSON.stringify(obj);
+}
+
 /**
  * if getEntitlements returns a subscription then the user is entitled
  *
@@ -49,7 +64,12 @@ async function getEntitlements(req: Request) {
  */
 export async function hasSmartManagement(req: Request) {
     try {
+        /* tslint:disable */
+        const timerStr = getTimerString(req.identity);
+        console.time(timerStr);
         const response = await getEntitlements(req);
+        console.timeEnd(timerStr);
+        /* tslint:enable */
 
         if ((Array.isArray(response) && response.length > 0) || response.subscriptionNumber) {
             return true;
@@ -57,7 +77,7 @@ export async function hasSmartManagement(req: Request) {
     } catch (e) {
         log.error("Error while running getEntitlements");
 
-        if (e.name === 'StatusCodeError') {
+        if (e.name === "StatusCodeError") {
             log.error(`${e.name} [${e.statusCode}] """ ${e.message} """`);
             return false;
         }
