@@ -42,10 +42,11 @@ async function getEntitlements(req: Request) {
     });
 }
 
-function getTimerString(identity: object) {
+function getTimerString(time: number, identity: object) {
     const obj = {
         // @ts-ignore
-        org_id: identity.internal.org_id
+        org_id: identity.internal.org_id,
+        time
     };
 
     // @ts-ignore
@@ -54,7 +55,7 @@ function getTimerString(identity: object) {
         obj.user = identity.user.username;
     }
 
-    return "Service performance: " +  JSON.stringify(obj);
+    return JSON.stringify(obj);
 }
 
 /**
@@ -64,12 +65,10 @@ function getTimerString(identity: object) {
  */
 export async function hasSmartManagement(req: Request) {
     try {
-        /* tslint:disable */
-        const timerStr = getTimerString(req.identity);
-        console.time(timerStr);
-        const response = await getEntitlements(req);
-        console.timeEnd(timerStr);
-        /* tslint:enable */
+        const start = Date.now();
+        const response: any = await getEntitlements(req);
+        const end = Date.now();
+        log.info(getTimerString(end - start, req.identity));
 
         if ((Array.isArray(response) && response.length > 0) || response.subscriptionNumber) {
             return true;
