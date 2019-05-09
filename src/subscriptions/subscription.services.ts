@@ -1,8 +1,15 @@
 import fs from "fs";
+import LRU from "lru-cache";
 import request from "request-promise";
+
 import config from "../config";
 import Request from "../types/RequestType";
 import log from "../util/log";
+
+const cache = new LRU({
+    max: 500,
+    maxAge: 1000 * 60 * 30
+});
 
 /**
  * Queries subscription service looking for supplied smart management
@@ -42,8 +49,9 @@ async function getEntitlements(req: Request) {
     });
 }
 
-function getTimerString(time: number, identity: object) {
+function getTimerString(time: number, identity: object, cacheHit: boolean) {
     const obj = {
+        cacheHit,
         // @ts-ignore
         org_id: identity.internal.org_id,
         time
@@ -58,6 +66,11 @@ function getTimerString(time: number, identity: object) {
     return JSON.stringify(obj);
 }
 
+function logTimeSpent(start: number, identity: object, cacheHit: boolean) {
+    const end = Date.now();
+    log.info(getTimerString(end - start, identity, cacheHit));
+}
+
 /**
  * if getEntitlements returns a subscription then the user is entitled
  *
@@ -66,13 +79,21 @@ function getTimerString(time: number, identity: object) {
 export async function hasSmartManagement(req: Request) {
     try {
         const start = Date.now();
+        const cacheValue: any = cache.get(req.identity.internal.org_id);
+
+        if (cacheValue === true || cacheValue === false) {
+            logTimeSpent(start, req.identity, true);
+            return cacheValue;
+        }
+
         const response: any = await getEntitlements(req);
-        const end = Date.now();
-        log.info(getTimerString(end - start, req.identity));
+        logTimeSpent(start, req.identity, false);
 
         if ((Array.isArray(response) && response.length > 0) || response.subscriptionNumber) {
+            cache.set(req.identity.internal.org_id, true);
             return true;
         }
+
     } catch (e) {
         log.error("Error while running getEntitlements");
 
@@ -91,5 +112,6 @@ export async function hasSmartManagement(req: Request) {
         return false;
     }
 
+    cache.set(req.identity.internal.org_id, false);
     return false;
 }
